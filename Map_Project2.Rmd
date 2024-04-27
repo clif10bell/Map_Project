@@ -1,0 +1,33 @@
+---
+title: "Leaflet Map for Coursera Assignment"
+author: "Clifton Bell"
+date: "2024-04-26"
+output: html_document
+runtime: html_document
+---
+
+```{r setup, include=FALSE, warning = FALSE, echo = FALSE, results = 'hide'}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r, echo = FALSE, warning = FALSE, results = 'hide'}
+suppressPackageStartupMessages(library(dplyr))
+library(leaflet)
+library(readr)
+```
+
+## What We Ate and Drank in Spain
+
+``` {r, echo = FALSE, message = FALSE, warning = FALSE}
+
+data <- read_csv("Spain_Food_Shots.csv")
+
+leaflet(data) %>%
+  addTiles() %>%
+  addMarkers(
+    lng = ~lng,
+    lat = ~lat,
+    popup = ~paste0("<div style='max-width: 600px;'><b>", City, "</b><br>", Food_Drink, "<br><img src='", URL2, "' width='100%'></div>"),
+    clusterOptions = markerClusterOptions()
+  )
+```
